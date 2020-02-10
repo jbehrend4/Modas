@@ -1,0 +1,105 @@
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@using Modas.Models
+@model ViewEvents
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Modas</title>
+    <link href="~/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/client.css" rel="stylesheet" />
+</head>
+<body>
+
+<div class="container">
+    <table class="table table-sm table-striped table-shadow mt-2">
+        <thead class="bg-dark text-white">
+        <tr><th>Flag</th><th>Date</th><th style="text-align: left">Time</th><th style="text-align: right">Location</th></tr>
+        </thead>
+        <tbody>
+        @foreach (var e in Model.Events)
+        {
+            <tr>
+                @if (e.Flagged == true)
+                {
+                    <td><span data-id="@e.EventId" data-checked="@e.Flagged" class="fas fa-flag"></span></td>
+                }
+                <td><span data-id="@e.EventId" data-checked="@e.Flagged)" class="far fa-flag"></span></td>
+                <td>@String.Format("{0: dddd, MMMM dd, yyyy}", e.TimeStamp)</td>
+                <td style="text-align: left">@String.Format("{0:hh:mm tt}", e.TimeStamp)</td>
+                <td style="text-align: right">@e.Location.Name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div class="row mb-3">
+        <div class="col-2">
+            <button class="btn btn-outline-secondary page-back" data-page="1"><span class="fas fa-angle-double-left"></span>&nbsp;First</button>
+            <button class="btn btn-outline-secondary page-back" data-page="@(Model.Pages.PreviousPage)"><span class="fas fa-angle-left"></span>&nbsp;Prev</button>
+        </div>
+        <div class="col text-center">
+            <div class="row">
+                Events&nbsp;<div id="start">@(Model.Pages.PageRangeStart)</div>&nbsp;-&nbsp;<div id="end">@(Model.Pages.PageRangeEnd)</div>
+                &nbsp;of&nbsp;<div id="total">@(Model.Pages.TotalEvents)</div>
+            </div>
+
+        </div>
+        <div class="col-2 text-right">
+            <button class="btn btn-outline-secondary page-forward" data-page="@(Model.Pages.NextPage)">Next&nbsp;<span class="fas fa-angle-right"></span></button>
+            <button class="btn btn-outline-secondary page-forward" data-page="@(Model.Pages.TotalPages)">Last&nbsp;<span class="fas fa-angle-double-right"></span></button>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        buttonController();
+        $('.fa-flag').mouseenter(
+            function() {
+                if ($(this).data('checked')) {
+                    $(this).data('checked', false);
+                    $(this).removeClass('fas').addClass('far');
+                } else {
+                    $(this).data('checked', true);
+                    $(this).removeClass('far').addClass('fas');
+                }
+            });
+        $('.fa-flag').mouseleave(
+            function() {
+                if ($(this).data('checked')) {
+                    $(this).data('checked', false);
+                    $(this).removeClass('fas').addClass('far');
+                } else {
+                    $(this).data('checked', true);
+                    $(this).removeClass('far').addClass('fas');
+                }
+            });
+
+
+        $('.fa-flag').on('click',
+            function() {
+                if ($(this).data('checked')) {
+                    $(this).data('checked', false);
+                    $(this).removeClass('fas').addClass('far');
+                } else {
+                    $(this).data('checked', true);
+                    $(this).removeClass('far').addClass('fas');
+                }
+            });
+
+
+        $('.page-back, .page-forward').on('click', function () {
+            location.href = "page" + $(this).data('page');
+        });
+
+        function buttonController() {
+            $('.page-back').attr('disabled', $('#start').html() === "1");
+            $(".page-forward").attr('disabled', $('#end').html() === $('#total').html());
+        }
+    });
+</script>
+</body>
+</html>
