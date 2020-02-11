@@ -29,5 +29,20 @@ namespace Modas.Models
             new Event { TimeStamp = new DateTime(2018, 4, 28, 5, 4, 40), Flagged = false, Location = Locations.FirstOrDefault(l => l.LocationId == 3) }
 
         }.AsQueryable<Event>();
+
+        public Event AddEvent(Event evt)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteEvent(int eventId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Event UpdateEvent(Event evt)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

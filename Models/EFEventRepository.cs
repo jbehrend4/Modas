@@ -13,5 +13,20 @@ namespace Modas.Models
 
         public IQueryable<Event> Events => context.Events;
         public IQueryable<Location> Locations => context.Locations;
+
+        public Event AddEvent(Event evt)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteEvent(int eventId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Event UpdateEvent(Event evt)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
