@@ -26,7 +26,7 @@
                     <td><span data-id="@e.EventId" data-checked="@e.Flagged" class="fas fa-flag"></span></td>
                 }
                 <td><span data-id="@e.EventId" data-checked="@e.Flagged)" class="far fa-flag"></span></td>
-                <td>@String.Format("{0: dddd, MMMM dd, yyyy}", e.TimeStamp)</td>
+                <td>@String.Format("{0: ddd, MMM dd, yyyy}", e.TimeStamp)</td>
                 <td style="text-align: left">@String.Format("{0:hh:mm tt}", e.TimeStamp)</td>
                 <td style="text-align: right">@e.Location.Name</td>
             </tr>
